@@ -1,0 +1,75 @@
+
+
+services:
+  postgres:
+    image: postgis/postgis:15-3.4
+    container_name: cropguard-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cropguard
+      POSTGRES_PASSWORD: cropguard123
+      POSTGRES_DB: cropguard
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cropguard -d cropguard"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: cropguard-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cropguard-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://cropguard:cropguard123@postgres:5432/cropguard
+      - REDIS_URL=redis://redis:6379/0
+      - JWT_SECRET=dev-jwt-secret-change-in-production
+      - WEATHER_API_KEY=${WEATHER_API_KEY:-}
+      - STORAGE_TYPE=local
+      - STORAGE_PATH=/app/uploads
+      - DEMO_MODE=true
+    volumes:
+      - backend_uploads:/app/uploads
+      - ./Model:/app/Model:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    command: >
+      sh -c "python seed.py && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: cropguard-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NEXT_PUBLIC_DEMO_MODE=true
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  redis_data:
+  backend_uploads:
