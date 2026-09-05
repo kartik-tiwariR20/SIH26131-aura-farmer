@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslation } from "@/lib/i18n";
 import { 
   LayoutDashboard, 
   Sprout, 
@@ -32,31 +33,32 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onToggleCollapse
 }) => {
   const pathname = usePathname();
+  const { t } = useTranslation();
 
   const farmerNav = [
-    { name: "Overview", href: "/farmer", icon: LayoutDashboard },
-    { name: "My Fields", href: "/farmer/fields", icon: Sprout },
-    { name: "Scan Crop", href: "/farmer/diagnose", icon: Scan },
-    { name: "Pest Reports", href: "/farmer/pests", icon: Bug },
-    { name: "Weather Risk", href: "/farmer/weather", icon: CloudSun },
-    { name: "Advisories", href: "/farmer/advisories", icon: FileText },
-    { name: "Alerts", href: "/alerts", icon: Bell },
+    { name: t("overview"), href: "/farmer", icon: LayoutDashboard },
+    { name: t("my_fields"), href: "/farmer/fields", icon: Sprout },
+    { name: t("scan_crop"), href: "/farmer/diagnose", icon: Scan },
+    { name: t("pest_reports"), href: "/farmer/pests", icon: Bug },
+    { name: t("weather_risk_label"), href: "/farmer/weather", icon: CloudSun },
+    { name: t("advisories"), href: "/farmer/advisories", icon: FileText },
+    { name: t("alerts"), href: "/alerts", icon: Bell },
   ];
 
   const expertNav = [
-    { name: "Review Queue", href: "/expert", icon: UserCheck },
-    { name: "Lab Referrals", href: "/expert/labs", icon: FlaskConical },
-    { name: "Field Health Map", href: "/official/map", icon: Map },
-    { name: "Alerts", href: "/alerts", icon: Bell },
+    { name: t("review_queue"), href: "/expert", icon: UserCheck },
+    { name: t("lab_referrals"), href: "/expert/labs", icon: FlaskConical },
+    { name: t("field_health_map"), href: "/official/map", icon: Map },
+    { name: t("alerts"), href: "/alerts", icon: Bell },
   ];
 
   const officialNav = [
-    { name: "Surveillance Overview", href: "/official", icon: BarChart3 },
-    { name: "Hotspot Map", href: "/official/map", icon: Map },
-    { name: "Disease Analytics", href: "/official/analytics", icon: BarChart3 },
-    { name: "Pest Analytics", href: "/official/pests", icon: Bug },
-    { name: "Expert Reviews", href: "/expert", icon: UserCheck },
-    { name: "Alerts Center", href: "/alerts", icon: Bell },
+    { name: t("surveillance_overview"), href: "/official", icon: BarChart3 },
+    { name: t("hotspot_map_label"), href: "/official/map", icon: Map },
+    { name: t("disease_analytics_label"), href: "/official/analytics", icon: BarChart3 },
+    { name: t("pest_analytics"), href: "/official/pests", icon: Bug },
+    { name: t("expert_reviews"), href: "/expert", icon: UserCheck },
+    { name: t("alerts_center"), href: "/alerts", icon: Bell },
   ];
 
   const navItems = role === "AGRICULTURE_OFFICIAL" ? officialNav : role === "EXPERT" ? expertNav : farmerNav;
@@ -81,7 +83,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {!isCollapsed && (
         <div className="p-4 border-b border-gray-100 bg-emerald-50/50">
           <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-800">
-            {role === "AGRICULTURE_OFFICIAL" ? "Government Official Portal" : role === "EXPERT" ? "Agronomist Portal" : "Farmer Field Portal"}
+           {role === "AGRICULTURE_OFFICIAL" ? t("government_official_portal") : role === "EXPERT" ? t("agronomist_portal") : t("farmer_field_portal")}
           </span>
         </div>
       )}
@@ -119,7 +121,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           }`}
         >
           <Settings className="h-5 w-5 text-gray-400" />
-          {!isCollapsed && <span>Settings</span>}
+          {!isCollapsed && <span>{t("settings_label")}</span>}
         </Link>
       </div>
     </aside>

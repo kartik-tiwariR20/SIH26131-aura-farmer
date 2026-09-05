@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/lib/i18n";
 import {
   ResponsiveContainer,
   LineChart,
@@ -69,6 +70,7 @@ const weeklyCasesData = [
 
 export default function OfficialDashboard() {
   const [collapsed, setCollapsed] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F7FAF7]">
@@ -83,16 +85,16 @@ export default function OfficialDashboard() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-200 pb-4">
             <div>
               <div className="flex items-center gap-2 text-xs text-gray-500 font-medium mb-1">
-                <span>District: All (Nashik Region)</span>
+                <span>{t("district_all_nashik")}</span>
                 <span>•</span>
-                <span>Last updated: 5 minutes ago</span>
+                <span>{t("last_updated_5_minutes")}</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900">Crop Health Intelligence Surveillance</h1>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900">{t("field_health_intelligence")}</h1>
             </div>
 
             <Button className="bg-[#166534] hover:bg-emerald-800 text-white rounded-xl text-xs font-semibold px-4 py-2.5 flex items-center gap-1.5 shadow-sm">
               <FileSpreadsheet className="w-4 h-4" />
-              Export District Outbreak Report
+              {t("export_district_outbreak_report")}
             </Button>
           </div>
 
