@@ -1,16 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Navbar } from "@/components/agri/Navbar";
-import { Shield, Lock, Mail, UserCheck, ArrowRight } from "lucide-react";
+import { Shield, Lock, Mail, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useTranslation } from "@/lib/i18n";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [email, setEmail] = useState("farmer@example.com");
   const [password, setPassword] = useState("Farmer@123");
   const [role, setRole] = useState("FARMER");
@@ -56,13 +57,13 @@ export default function LoginPage() {
             <div className="w-12 h-12 rounded-xl bg-emerald-100 text-[#166534] flex items-center justify-center mx-auto mb-3">
               <Shield className="w-7 h-7" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">Sign in to CropGuard</h2>
-            <p className="text-xs text-gray-500">Access your role-protected agricultural portal</p>
+            <h2 className="text-2xl font-bold text-gray-900">{t("sign_in_to_cropguard")}</h2>
+            <p className="text-xs text-gray-500">{t("access_role_portal")}</p>
           </div>
 
           {/* Quick Demo Credentials Switcher */}
           <div className="p-3 bg-emerald-50/80 rounded-xl border border-emerald-200 text-xs space-y-2">
-            <span className="font-bold text-emerald-900 block">1-Click Quick Demo Login:</span>
+            <span className="font-bold text-emerald-900 block">{t("quick_demo_login")}</span>
             <div className="grid grid-cols-3 gap-1.5">
               <button
                 type="button"
@@ -71,7 +72,7 @@ export default function LoginPage() {
                   role === "FARMER" ? "bg-[#166534] text-white border-[#166534]" : "bg-white text-gray-700 border-gray-200"
                 }`}
               >
-                🌱 Farmer
+                🌱 {t("farmer")}
               </button>
               <button
                 type="button"
@@ -80,7 +81,7 @@ export default function LoginPage() {
                   role === "EXPERT" ? "bg-[#166534] text-white border-[#166534]" : "bg-white text-gray-700 border-gray-200"
                 }`}
               >
-                🔬 Expert
+                🔬 {t("expert")}
               </button>
               <button
                 type="button"
@@ -89,14 +90,14 @@ export default function LoginPage() {
                   role === "AGRICULTURE_OFFICIAL" ? "bg-[#166534] text-white border-[#166534]" : "bg-white text-gray-700 border-gray-200"
                 }`}
               >
-                📊 Official
+                📊 {t("official")}
               </button>
             </div>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-1.5">
-              <Label className="text-xs font-semibold text-gray-700">Email Address</Label>
+              <Label className="text-xs font-semibold text-gray-700">{t("email_address")}</Label>
               <div className="relative">
                 <Mail className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
                 <Input
@@ -110,7 +111,7 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-1.5">
-              <Label className="text-xs font-semibold text-gray-700">Password</Label>
+              <Label className="text-xs font-semibold text-gray-700">{t("password")}</Label>
               <div className="relative">
                 <Lock className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
                 <Input
@@ -128,7 +129,7 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full bg-[#166534] hover:bg-emerald-800 text-white rounded-xl py-5 font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2"
             >
-              {loading ? "Signing in..." : "Enter Portal"}
+              {loading ? t("signing_in") : t("enter_portal")}
               <ArrowRight className="w-4 h-4" />
             </Button>
           </form>

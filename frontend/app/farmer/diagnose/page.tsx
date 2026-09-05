@@ -20,8 +20,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslation } from "@/lib/i18n";
 
 export default function DiagnosisPage() {
+  const { t } = useTranslation();
   const [step, setStep] = useState<number>(1);
   const [crop, setCrop] = useState("Tomato");
   const [variety, setVariety] = useState("Abhinav Hybrid");
@@ -64,10 +66,10 @@ export default function DiagnosisPage() {
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900">
-              AI Crop Health Scanner & Diagnosis
+              {t("ai_crop_health_scanner")}
             </h1>
             <p className="text-xs sm:text-sm text-gray-600">
-              Upload a clear leaf or plant photo to receive preliminary AI diagnosis, risk score, and IPDM advisory.
+              {t("crop_health_subtitle")}
             </p>
           </div>
 
@@ -75,31 +77,31 @@ export default function DiagnosisPage() {
           <div className="flex items-center justify-between max-w-2xl mx-auto px-4 py-3 bg-white rounded-2xl border border-gray-200 shadow-sm text-xs font-semibold">
             <div className={`flex items-center gap-1.5 ${step >= 1 ? "text-[#166534]" : "text-gray-400"}`}>
               <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] ${step >= 1 ? "bg-[#166534] text-white" : "bg-gray-200"}`}>1</span>
-              <span>Crop</span>
+              <span>{t("crop")}</span>
             </div>
             <ArrowRight className="w-3.5 h-3.5 text-gray-300" />
             
             <div className={`flex items-center gap-1.5 ${step >= 2 ? "text-[#166534]" : "text-gray-400"}`}>
               <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] ${step >= 2 ? "bg-[#166534] text-white" : "bg-gray-200"}`}>2</span>
-              <span>Image</span>
+              <span>{t("image")}</span>
             </div>
             <ArrowRight className="w-3.5 h-3.5 text-gray-300" />
 
             <div className={`flex items-center gap-1.5 ${step >= 3 ? "text-[#166534]" : "text-gray-400"}`}>
               <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] ${step >= 3 ? "bg-[#166534] text-white" : "bg-gray-200"}`}>3</span>
-              <span>Context</span>
+              <span>{t("context")}</span>
             </div>
             <ArrowRight className="w-3.5 h-3.5 text-gray-300" />
 
             <div className={`flex items-center gap-1.5 ${step >= 4 ? "text-[#166534]" : "text-gray-400"}`}>
               <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] ${step >= 4 ? "bg-[#166534] text-white" : "bg-gray-200"}`}>4</span>
-              <span>Analysis</span>
+              <span>{t("analysis")}</span>
             </div>
             <ArrowRight className="w-3.5 h-3.5 text-gray-300" />
 
             <div className={`flex items-center gap-1.5 ${step >= 5 ? "text-[#166534]" : "text-gray-400"}`}>
               <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] ${step >= 5 ? "bg-[#166534] text-white" : "bg-gray-200"}`}>5</span>
-              <span>Advisory</span>
+              <span>{t("advisory")}</span>
             </div>
           </div>
 
@@ -109,7 +111,7 @@ export default function DiagnosisPage() {
               
               {/* Crop Selection */}
               <div className="space-y-4">
-                <h3 className="text-base font-bold text-gray-900">1. Select Crop & Variety</h3>
+                <h3 className="text-base font-bold text-gray-900">{t("select_crop_and_variety")}</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
                   {["Tomato", "Cotton", "Rice", "Sugarcane", "Wheat", "Potato", "Maize", "Apple"].map((c) => (
                     <button
@@ -128,7 +130,7 @@ export default function DiagnosisPage() {
 
               {/* Image Upload Area (Camera/Scanner UI) */}
               <div className="space-y-4 pt-4 border-t border-gray-100">
-                <h3 className="text-base font-bold text-gray-900">2. Upload Crop Symptom Photo</h3>
+                <h3 className="text-base font-bold text-gray-900">{t("upload_crop_symptom_photo")}</h3>
                 
                 <div className="relative border-2 border-dashed border-emerald-300/80 rounded-2xl p-6 text-center bg-emerald-50/40 hover:bg-emerald-50 transition cursor-pointer">
                   <input 
@@ -145,9 +147,9 @@ export default function DiagnosisPage() {
                       </div>
                       <p className="text-xs text-emerald-800 font-semibold flex items-center justify-center gap-1">
                         <Check className="w-4 h-4 text-emerald-600" />
-                        Image Loaded ({imageFile?.name || "Sample Photo"})
+                        {t("image_loaded")} ({imageFile?.name || "Sample Photo"})
                       </p>
-                      <span className="text-[11px] text-gray-500 underline">Click or drop to replace</span>
+                      <span className="text-[11px] text-gray-500 underline">{t("click_replace")}</span>
                     </div>
                   ) : (
                     <div className="space-y-3">
@@ -155,11 +157,11 @@ export default function DiagnosisPage() {
                         <Camera className="w-7 h-7" />
                       </div>
                       <div>
-                        <p className="text-sm font-bold text-gray-800">Take Photo or Drag & Drop Image</p>
-                        <p className="text-xs text-gray-500 mt-1">Supports JPG, PNG (Max 10MB)</p>
+                        <p className="text-sm font-bold text-gray-800">{t("take_photo_or_drag")}</p>
+                        <p className="text-xs text-gray-500 mt-1">{t("supports_formats")}</p>
                       </div>
                       <span className="inline-block bg-[#166534] text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-sm">
-                        Choose File
+                        {t("choose_file")}
                       </span>
                     </div>
                   )}

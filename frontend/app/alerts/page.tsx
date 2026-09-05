@@ -7,9 +7,11 @@ import { DEMO_ALERTS } from "@/lib/demo-data";
 import { Bell, AlertTriangle, ShieldAlert, Info, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useTranslation } from "@/lib/i18n";
 
 export default function AlertsPage() {
   const [alerts, setAlerts] = useState(DEMO_ALERTS);
+  const { t } = useTranslation();
 
   const markAllRead = () => {
     setAlerts(alerts.map((a) => ({ ...a, read: true })));
@@ -26,12 +28,12 @@ export default function AlertsPage() {
           
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900">Alerts & Notification Center</h1>
-              <p className="text-xs sm:text-sm text-gray-600">Disease risk forecasts, weather warnings, and expert review notifications.</p>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900">{t("alerts_notification_center")}</h1>
+              <p className="text-xs sm:text-sm text-gray-600">{t("alerts_subtitle")}</p>
             </div>
 
             <Button onClick={markAllRead} variant="outline" className="text-xs font-semibold rounded-xl border-gray-300">
-              Mark All as Read
+              {t("mark_all_read")}
             </Button>
           </div>
 

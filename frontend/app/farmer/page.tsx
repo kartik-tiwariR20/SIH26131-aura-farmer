@@ -20,9 +20,11 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslation } from "@/lib/i18n";
 
 export default function FarmerDashboard() {
   const [collapsed, setCollapsed] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F7FAF7]">
@@ -37,10 +39,10 @@ export default function FarmerDashboard() {
           <div className="bg-gradient-to-r from-[#166534] via-emerald-800 to-emerald-900 rounded-3xl p-6 sm:p-8 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
               <h1 className="text-2xl sm:text-3xl font-extrabold flex items-center gap-2">
-                Good Evening, Rajesh 👋
+                {t("good_evening_label")}, Rajesh 👋
               </h1>
               <p className="text-emerald-100 text-sm mt-1">
-                Your farm health overview: <span className="font-bold text-white">1 field healthy</span> • <span className="font-bold text-amber-300">1 field needs attention</span>
+                {t("farm_health_summary")}: <span className="font-bold text-white">{t("field_healthy_single")}</span> • <span className="font-bold text-amber-300">{t("field_needs_single")}</span>
               </p>
             </div>
 
@@ -49,13 +51,13 @@ export default function FarmerDashboard() {
               <Link href="/farmer/diagnose">
                 <Button className="bg-[#22C55E] hover:bg-emerald-500 text-gray-950 font-bold px-6 py-6 rounded-2xl text-sm shadow-md flex items-center gap-2 transition-all">
                   <Scan className="w-5 h-5" />
-                  Check Crop Health
+                  {t("check_crop_health")}
                 </Button>
               </Link>
               <Link href="/farmer/pests">
                 <Button variant="outline" className="border-white/40 text-white hover:bg-white/10 font-semibold px-5 py-6 rounded-2xl text-sm backdrop-blur">
                   <Bug className="w-4 h-4 mr-1.5" />
-                  Report Pest
+                  {t("report_pest")}
                 </Button>
               </Link>
             </div>
@@ -69,8 +71,8 @@ export default function FarmerDashboard() {
                 <Sprout className="w-6 h-6" />
               </div>
               <div>
-                <span className="text-xs text-gray-500 font-medium block">🌱 Farm Health</span>
-                <span className="text-lg font-bold text-gray-900">82% Good</span>
+                <span className="text-xs text-gray-500 font-medium block">🌱 {t("farm_health_overview")}</span>
+                <span className="text-lg font-bold text-gray-900">82%</span>
               </div>
             </Card>
 
@@ -79,8 +81,8 @@ export default function FarmerDashboard() {
                 <AlertTriangle className="w-6 h-6" />
               </div>
               <div>
-                <span className="text-xs text-gray-500 font-medium block">⚠️ Active Alerts</span>
-                <span className="text-lg font-bold text-amber-900">2 Alerts</span>
+                <span className="text-xs text-gray-500 font-medium block">⚠️ {t("active_alerts_label")}</span>
+                <span className="text-lg font-bold text-amber-900">2 {t("alerts")}</span>
               </div>
             </Card>
 
@@ -89,7 +91,7 @@ export default function FarmerDashboard() {
                 <Activity className="w-6 h-6" />
               </div>
               <div>
-                <span className="text-xs text-gray-500 font-medium block">🔬 Recent Diagnosis</span>
+                <span className="text-xs text-gray-500 font-medium block">🔬 {t("recent_diagnosis_label")}</span>
                 <span className="text-sm font-bold text-gray-900 line-clamp-1">Tomato Early Blight</span>
               </div>
             </Card>
@@ -99,7 +101,7 @@ export default function FarmerDashboard() {
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <div>
-                <span className="text-xs text-gray-500 font-medium block">🌦 Weather Risk</span>
+                <span className="text-xs text-gray-500 font-medium block">🌦 {t("weather_risk_warning")}</span>
                 <span className="text-sm font-bold text-orange-600">Moderate/High</span>
               </div>
             </Card>
@@ -117,9 +119,9 @@ export default function FarmerDashboard() {
             {/* My Fields List */}
             <div className="lg:col-span-2 space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-bold text-gray-900">My Monitored Fields</h3>
+                <h3 className="text-lg font-bold text-gray-900">{t("my_monitored_fields")}</h3>
                 <Link href="/farmer/fields" className="text-xs font-semibold text-emerald-700 hover:underline">
-                  View All Fields
+                  {t("view_all_fields")}
                 </Link>
               </div>
 
@@ -138,7 +140,7 @@ export default function FarmerDashboard() {
 
                     <Link href={`/farmer/diagnose?field=${field.id}`}>
                       <Button variant="outline" className="border-emerald-700 text-emerald-800 hover:bg-emerald-50 text-xs font-semibold rounded-xl">
-                        Scan This Field
+                        {t("scan_this_field")}
                       </Button>
                     </Link>
                   </Card>
@@ -152,26 +154,26 @@ export default function FarmerDashboard() {
           <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-4">
             <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
               <Clock className="w-4 h-4 text-emerald-700" />
-              Recent Field Activity Timeline
+              {t("recent_field_activity_timeline")}
             </h3>
 
             <div className="space-y-4 text-xs sm:text-sm pl-4 border-l-2 border-emerald-200">
               <div className="relative pl-4">
                 <span className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-emerald-600 ring-4 ring-white" />
-                <span className="text-xs text-gray-400 font-semibold block">Today</span>
-                <p className="font-semibold text-gray-800">Tomato field image analyzed by AI (Tomato Early Blight, 94% match)</p>
+                <span className="text-xs text-gray-400 font-semibold block">{t("today")}</span>
+                <p className="font-semibold text-gray-800">{t("recent_case")}</p>
               </div>
 
               <div className="relative pl-4">
                 <span className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-amber-500 ring-4 ring-white" />
-                <span className="text-xs text-gray-400 font-semibold block">Yesterday</span>
-                <p className="font-semibold text-gray-800">Yellow sticky trap observation recorded (18 Aphids count)</p>
+                <span className="text-xs text-gray-400 font-semibold block">{t("yesterday")}</span>
+                <p className="font-semibold text-gray-800">{t("trap_observation")}</p>
               </div>
 
               <div className="relative pl-4">
                 <span className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-blue-500 ring-4 ring-white" />
-                <span className="text-xs text-gray-400 font-semibold block">3 days ago</span>
-                <p className="font-semibold text-gray-800">Weather risk alert triggered (Humidity reached 84%)</p>
+                <span className="text-xs text-gray-400 font-semibold block">3 {t("days_ago")}</span>
+                <p className="font-semibold text-gray-800">{t("weather_alert")}</p>
               </div>
             </div>
           </div>

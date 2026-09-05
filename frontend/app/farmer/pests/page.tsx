@@ -9,8 +9,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslation } from "@/lib/i18n";
 
 export default function PestsPage() {
+  const { t } = useTranslation();
   const [pestType, setPestType] = useState("Aphids");
   const [trapType, setTrapType] = useState("Yellow Sticky Trap");
   const [count, setCount] = useState(18);
@@ -32,9 +34,9 @@ export default function PestsPage() {
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-4xl mx-auto">
           
           <div className="text-center max-w-xl mx-auto space-y-2">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900">Pest Trap & Observation Module</h1>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900">{t("pest_trap_module")}</h1>
             <p className="text-xs sm:text-sm text-gray-600">
-              Record manual sticky trap counts or connect IoT optical pest sensors for early vector outbreak alerts.
+              {t("pest_trap_subtitle")}
             </p>
           </div>
 
@@ -45,12 +47,12 @@ export default function PestsPage() {
                 <Cpu className="w-6 h-6 text-emerald-300" />
               </div>
               <div className="text-xs sm:text-sm">
-                <span className="font-bold text-white block">IoT Pest Sensor Ready</span>
+                <span className="font-bold text-white block">{t("iot_sensor_ready")}</span>
                 <span className="text-emerald-200">Architecture: Sensor -&gt; Sensor API -&gt; Risk Engine -&gt; Alert</span>
               </div>
             </div>
             <span className="text-[11px] bg-emerald-700/60 px-3 py-1 rounded-full text-emerald-200 border border-emerald-500/40 shrink-0">
-              API Stream Active
+              {t("api_stream_active")}
             </span>
           </div>
 
@@ -59,12 +61,12 @@ export default function PestsPage() {
               {submitted ? (
                 <div className="py-8 text-center space-y-3">
                   <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
-                  <h3 className="text-xl font-bold text-gray-900">Pest Observation Recorded!</h3>
+                  <h3 className="text-xl font-bold text-gray-900">{t("pest_observation_recorded")}</h3>
                   <p className="text-xs text-gray-600 max-w-md mx-auto">
                     {count} {pestType} recorded in {trapType}. Risk engine updated pest vector activity score.
                   </p>
                   <Button onClick={() => setSubmitted(false)} className="bg-[#166534] text-white text-xs font-semibold rounded-xl mt-2">
-                    Record Another Observation
+                    {t("record_another_observation")}
                   </Button>
                 </div>
               ) : (
@@ -72,7 +74,7 @@ export default function PestsPage() {
                   
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <Label className="text-xs font-semibold text-gray-700">Pest Type</Label>
+                      <Label className="text-xs font-semibold text-gray-700">{t("pest_type")}</Label>
                       <select
                         value={pestType}
                         onChange={(e) => setPestType(e.target.value)}
@@ -87,7 +89,7 @@ export default function PestsPage() {
                     </div>
 
                     <div className="space-y-1.5">
-                      <Label className="text-xs font-semibold text-gray-700">Trap Type</Label>
+                      <Label className="text-xs font-semibold text-gray-700">{t("trap_type")}</Label>
                       <select
                         value={trapType}
                         onChange={(e) => setTrapType(e.target.value)}
@@ -102,7 +104,7 @@ export default function PestsPage() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-semibold text-gray-700">Pest Count Recorded</Label>
+                    <Label className="text-xs font-semibold text-gray-700">{t("pest_count_recorded")}</Label>
                     <Input
                       type="number"
                       value={count}
@@ -113,7 +115,7 @@ export default function PestsPage() {
                   </div>
 
                   <Button type="submit" className="w-full bg-[#166534] hover:bg-emerald-800 text-white rounded-xl py-5 font-bold text-xs shadow-md">
-                    Submit Pest Observation
+                    {t("submit_pest_observation")}
                   </Button>
 
                 </form>
